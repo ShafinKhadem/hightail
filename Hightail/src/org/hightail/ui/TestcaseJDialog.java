@@ -1,6 +1,8 @@
 package org.hightail.ui;
 
+import java.awt.GraphicsEnvironment;
 import java.awt.KeyboardFocusManager;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
@@ -72,6 +74,9 @@ public class TestcaseJDialog extends javax.swing.JDialog {
         inputTextarea.getDocument().addDocumentListener(documentListener);
         expectedOutputTextarea.getDocument().addDocumentListener(documentListener);
         timeLimitTextField.getDocument().addDocumentListener(documentListener);
+        
+        Rectangle bounds = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+        this.setBounds(bounds);
     }
     
     private void makeShortcuts() {
@@ -169,20 +174,20 @@ public class TestcaseJDialog extends javax.swing.JDialog {
         jLabel5.setText("Input:");
 
         inputTextarea.setColumns(20);
-        inputTextarea.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
+        inputTextarea.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         inputTextarea.setRows(5);
         inputTextarea.setMargin(new java.awt.Insets(3, 3, 3, 3));
         jScrollPane2.setViewportView(inputTextarea);
 
         expectedOutputTextarea.setColumns(20);
-        expectedOutputTextarea.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
+        expectedOutputTextarea.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         expectedOutputTextarea.setRows(5);
         expectedOutputTextarea.setMargin(new java.awt.Insets(3, 3, 3, 3));
         jScrollPane1.setViewportView(expectedOutputTextarea);
 
         programOutputTextarea.setEditable(false);
         programOutputTextarea.setColumns(20);
-        programOutputTextarea.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
+        programOutputTextarea.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         programOutputTextarea.setRows(5);
         programOutputTextarea.setMargin(new java.awt.Insets(3, 3, 3, 3));
         jScrollPane3.setViewportView(programOutputTextarea);
@@ -218,19 +223,19 @@ public class TestcaseJDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(executionResultLabel)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(executionResultLabel))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(executionTimeLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
@@ -238,14 +243,14 @@ public class TestcaseJDialog extends javax.swing.JDialog {
                     .addComponent(jScrollPane1))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(timeLimitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 250, Short.MAX_VALUE)
                         .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))

@@ -6,6 +6,7 @@
 
 package org.hightail.ui;
 
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -56,9 +57,12 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
                 editTestcaseButton.setEnabled(enable);
                 deleteTestcaseButton.setEnabled(enable);
                 copyInputButton.setEnabled(true);
+                moveTestcaseToTopButton.setEnabled(enable);
             }
         };
         testTable.getSelectionModel().addListSelectionListener(listSelectionListener);
+        testTable.setSelectionBackground(new Color (5, 5, 5, 100));    // grey-black
+//        testTable.setSelectionBackground (new Color (51, 153, 255));    // default windows
         
         sourceFile.setText(problem.getPathToExec());
         
@@ -85,6 +89,7 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
         copyInputButton = new javax.swing.JButton();
         abortCurrentTestButton = new javax.swing.JButton();
         saveTestsButton = new javax.swing.JButton();
+        moveTestcaseToTopButton = new javax.swing.JButton();
         openContainingDirectoryButton = new javax.swing.JButton();
         executableFileLabel = new javax.swing.JLabel();
         sourceFile = new javax.swing.JTextField();
@@ -114,7 +119,7 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
             }
         });
 
-        deleteTestcaseButton.setText("<html><center>Delete</center></html>");
+        deleteTestcaseButton.setText("Delete");
         deleteTestcaseButton.setEnabled(false);
         deleteTestcaseButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,22 +165,32 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
             }
         });
 
+        moveTestcaseToTopButton.setText("<html><center>Move<br />to top</center></html>");
+        moveTestcaseToTopButton.setEnabled(false);
+        moveTestcaseToTopButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                moveTestcaseToTopButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout testcasePanelLayout = new javax.swing.GroupLayout(testcasePanel);
         testcasePanel.setLayout(testcasePanelLayout);
         testcasePanelLayout.setHorizontalGroup(
             testcasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(testcasePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(newTestcaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(newTestcaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(editTestcaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(editTestcaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(deleteTestcaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(deleteTestcaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(copyInputButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(copyInputButton, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(saveTestsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE)
+                .addComponent(moveTestcaseToTopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(saveTestsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
                 .addComponent(runTestsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(abortCurrentTestButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -193,13 +208,14 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
                 .addGroup(testcasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(testcasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(saveTestsButton)
-                        .addComponent(copyInputButton))
-                    .addComponent(editTestcaseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(copyInputButton)
+                        .addComponent(moveTestcaseToTopButton))
                     .addComponent(newTestcaseButton)
                     .addComponent(abortCurrentTestButton)
                     .addComponent(runTestsButton)
                     .addComponent(abortAllTestsButton)
-                    .addComponent(deleteTestcaseButton, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addComponent(editTestcaseButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(deleteTestcaseButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         openContainingDirectoryButton.setText("Browse...");
@@ -280,6 +296,17 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
         // both of these are needed: the second one gets invoked if the row/table has focus, while the first one gets invoked
         // when something else has focus (it's possible that no row is selected or even exists; in that case we do nothing)
         // (and to have a Ctrl+C shortcut, we needed to override JTable's default behaviour for Ctrl+C)
+        
+        AbstractAction moveTestTopAction = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                moveCurrentTestcaseToTop();
+            }
+        };
+        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyboardShortcuts.getShortcut("move testcase to top"), "move testcase to top");
+        getActionMap().put("move testcase to top", moveTestTopAction);
+        testTable.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyboardShortcuts.getShortcut("move testcase to top"), "move testcase to top");
+        testTable.getActionMap().put("move testcase to top", moveTestTopAction);
         
         getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyboardShortcuts.getShortcut("abort tests"), "abort tests");
         getActionMap().put("abort tests", new AbstractAction() {
@@ -538,6 +565,33 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
     private void saveTestsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveTestsButtonActionPerformed
         saveTests();
     }//GEN-LAST:event_saveTestsButtonActionPerformed
+
+    
+    private void moveCurrentTestcaseToTop() {
+        if (isTesting) {
+            return;
+        }
+        int selectedRow1 = testTable.getSelectedRow();
+        if (selectedRow1 == -1) {
+            return; // this is possible if keyboard shortcut was pressed but no row is selected (maybe no row even exists)
+        }
+        int[] selectedRows = testTable.getSelectedRows ();
+        testTable.clearSelection ();
+        for (int i = selectedRows.length-1; i >= 0; i--) {
+            int selectedRow = selectedRows[i]+selectedRows.length-1-i;
+            if (selectedRow>=1) {
+                Testcase testcase = problem.getTestcase(selectedRow);
+                problem.deleteTestcase(selectedRow);
+                testTableModel.rowDeleted(selectedRow);
+                problem.addTestcaseAtTop(testcase);
+                testTableModel.rowInsertedAtTop();
+            }
+        }
+    }
+    
+    private void moveTestcaseToTopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moveTestcaseToTopButtonActionPerformed
+        moveCurrentTestcaseToTop();
+    }//GEN-LAST:event_moveTestcaseToTopButtonActionPerformed
     
     @Override
     public void notifyResultsOfSingleTestcase (int index) {
@@ -562,6 +616,7 @@ public class ProblemJPanel extends javax.swing.JPanel implements TestingListener
     private javax.swing.JButton editTestcaseButton;
     private javax.swing.JLabel executableFileLabel;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton moveTestcaseToTopButton;
     private javax.swing.JButton newTestcaseButton;
     private javax.swing.JButton openContainingDirectoryButton;
     private javax.swing.JButton runTestsButton;

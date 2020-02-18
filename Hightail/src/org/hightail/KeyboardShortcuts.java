@@ -6,6 +6,7 @@ public enum KeyboardShortcuts {
     RUN_TESTS       ("run tests", "ctrl R"),
     NEW_TESTCASE    ("new testcase", "ctrl T"),
     COPY_INPUT      ("copy input", "ctrl C"),
+    MOVE_TESTCASE_TO_TOP      ("move testcase to top", "ctrl U"),
     ABORT_ALL       ("abort tests", "ctrl A"),
     ABORT_CURRENT   ("abort current test", "ctrl shift A"),
     SAVE_TESTCASE   ("save testcase", "ctrl ENTER"),

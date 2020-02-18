@@ -35,6 +35,10 @@ public class Problem {
     public void addTestcase(Testcase testcase) {
         testcaseSet.add(testcase);
     }
+    
+    public void addTestcaseAtTop(Testcase testcase) {
+        testcaseSet.add(0, testcase);
+    }
 
     public Testcase getTestcase(int index) {
         return testcaseSet.get(index);

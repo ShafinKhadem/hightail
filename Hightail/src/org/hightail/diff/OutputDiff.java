@@ -12,18 +12,22 @@ public class OutputDiff {
                         + "received %s";
     private static final double MAX_ACCEPTED_FLOATING_POINT_ERROR = 1e-7;
     public static String diff(String expectedOutput, String actualOutput) {
-        
+
         double maxFloatingPointErrorObtained = 0;
-        
+
         StringTokenizer expectedOutputStringTokenizer = new StringTokenizer(expectedOutput),
                         actualOutputStringTokenizer = new StringTokenizer(actualOutput);
-        
+
+        int cntToken = 0;
+
         while (expectedOutputStringTokenizer.hasMoreTokens() &&
                actualOutputStringTokenizer.hasMoreTokens()) {
-            
+
+            cntToken++;
+
             String expectedToken = expectedOutputStringTokenizer.nextToken(),
                    actualToken = actualOutputStringTokenizer.nextToken();
-            
+
             if (!expectedToken.equals(actualToken)) {
                 // if they are e.g. 23.0 and 23.1, or 23 and 23.1, or 23.1 and 23, then treat them as floating point
                 if (looksLikeIntegerOrFloatingPoint(expectedToken)
@@ -40,32 +44,32 @@ public class OutputDiff {
                         maxFloatingPointErrorObtained = max(maxFloatingPointErrorObtained, minError);
                     } else {
                         // too big difference
-                        return String.format(format,
+                        return "Difference in token "+cntToken+":\n"+String.format(format,
                                              expectedToken,
                                              actualToken);
                     }
                 } else {
-                    return String.format(format,
+                    return "Difference in token "+cntToken+":\n"+String.format(format,
                                          expectedToken,
                                          actualToken);
                 }
             }
         }
-        
+
         if (expectedOutputStringTokenizer.hasMoreElements()) {
             String expectedToken = expectedOutputStringTokenizer.nextToken();
             return String.format(format,
                                  expectedToken,
                                  "EOF");
         }
-        
+
         if (actualOutputStringTokenizer.hasMoreElements()) {
             String actualToken = actualOutputStringTokenizer.nextToken();
             return String.format(format,
                                  "EOF",
                                  actualToken);
         }
-        
+
         if (maxFloatingPointErrorObtained != 0) {
             return "OK\n" + "with " + -round(log10(maxFloatingPointErrorObtained)) + " digits of precision";
         } else {
