@@ -107,7 +107,7 @@ public class ConfigJDialog extends javax.swing.JDialog {
 
         jLabel4.setText("<html>Setup tips for Java: let's say you keep the main class of your compiled solution to problem B at \"d:\\algo\\taskB\\Main.class\". In this case you want to execute \"java -classpath d:\\algo\\taskB Main\", so you should set the working directory to \"d:\\algo\", path from working directory to executable to \"task%P Main\" and the prepending command to \"java -classpath\". If you had just \"d:\\algo\\Main.class\", you would need to set the path from working directory to executable to \" Main\" (note the space at the beginning).<br>You must also uncheck \"check whether executable file exists\".");
 
-        wholeNameCheckBox.setText("In CodeForces, use the problem's full name (instead of first letter), like B. Sereja and numbers");
+        wholeNameCheckBox.setText("Use the problem's full name (instead of first letter), like B. Sereja and numbers");
 
         javax.swing.GroupLayout pathsAndDirectoriesPanelLayout = new javax.swing.GroupLayout(pathsAndDirectoriesPanel);
         pathsAndDirectoriesPanel.setLayout(pathsAndDirectoriesPanelLayout);

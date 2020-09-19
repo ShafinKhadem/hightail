@@ -206,7 +206,7 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="wholeNameCheckBox">
           <Properties>
-            <Property name="text" type="java.lang.String" value="In CodeForces, use the problem&apos;s full name (instead of first letter), like B. Sereja and numbers"/>
+            <Property name="text" type="java.lang.String" value="Use the problem&apos;s full name (instead of first letter), like B. Sereja and numbers"/>
           </Properties>
         </Component>
       </SubComponents>

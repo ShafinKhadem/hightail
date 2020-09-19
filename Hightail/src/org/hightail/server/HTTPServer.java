@@ -111,7 +111,7 @@ public class HTTPServer {
             name = name.substring(0, Problem.PROBLEM_NAME_MAX_LENGTH);
         }
 
-        if (url.contains("codeforces.com") && !Config.getBoolean("putWholeName")) {
+        if (!Config.getBoolean("putWholeName")) {
             name = String.valueOf(name.charAt(0));
         }
 
